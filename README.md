@@ -11,6 +11,7 @@ During each block-cycle, macroblock miners execute leadership selection, while m
 To find more details, please wait for our update.
 
 Here is a usage example(just for local test, which 1 microblock miner and 2 marcoblock miners）
+
 First
 Use pip to install requirements:
 ```
