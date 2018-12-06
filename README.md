@@ -20,6 +20,8 @@ Second
 Build lib.so(Pivot Chain selection function, written in C++)
 ```
 g++ main.cpp -fIPC -shared -o lib.so
+g++ main.cpp -fIPC -shared -o lib_test.so
+g++ main.cpp -fIPC -shared -o lib_test_two.so
 ```
 Third
 Run backend Chainbase
