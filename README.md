@@ -60,9 +60,8 @@ python trans_maker_test_two.pu
 ```
 Then the test network is build successfully!
 
-
-
 If you want to build a public net version, you should:
+
 First
 
 Start webchain using Gunicorn:
