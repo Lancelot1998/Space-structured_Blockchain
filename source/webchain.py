@@ -127,4 +127,4 @@ def transaction_post():
 
 if __name__ == "__main__":
     chainbase_address = 'node1'
-    app.run(port=23390)
+    app.run()

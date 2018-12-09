@@ -163,7 +163,7 @@ class ChainMsgHandler(socketserver.StreamRequestHandler):
 
     def processor_trans_make(self, content):
         i_ = 0
-        add_from = 1
+        add_from = 2
         add_to = 2
         add_to_two = random.randint(0, 1)
         _address = [add_from, add_to,  add_to_two]
@@ -199,9 +199,9 @@ class ChainMsgHandler(socketserver.StreamRequestHandler):
                 tran = Transaction(ipt, opt)
                 tran.ready(private_key)
                 content = trans_to_json(tran)
-                requests.post('http://127.0.0.1:23390/transaction_post', data=content)
-                requests.post('http://127.0.0.1:23391/transaction_post', data=content)
-                requests.post('http://127.0.0.1:23392/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
 
                 _ = send_handler(MsgType.TYPE_RESPONSE_OK, tran.b)
 
@@ -214,29 +214,26 @@ class ChainMsgHandler(socketserver.StreamRequestHandler):
         else:
             pass
 
-    def processor_macro_block_header_write(self, content) -> bool:
-        flag_ = False
+    def processor_macro_block_header_write(self, content):
         try:
             macro_block_header = MacroBlockHeader.unpack(content)
         except Exception:
             _ = send_handler(MsgType.TYPE_RESPONSE_ERROR, b'macro_block_header unpack error')
         else:
             result = self.server.macro_chain.add_macro_block_header(macro_block_header)
-            if self.server.macro_chain.accepted_macro_block_headers[macro_block_header.hash] == 1:
-                for i in self.server.cached_macro_block_body:
-                    if i.hash == macro_block_header.hash:
-                        self.parentless_macro_block_body_process(i)
+            for i in self.server.cached_macro_block_body:
+                if i.hash == macro_block_header.hash:
+                    self.parentless_macro_block_body_process(i)
             if result:
                 for i in self.server.cached_macro_block_header:
                     if macro_block_header.hash in i.parent_hash:
                         self.parentless_macro_block_header_process()
                 _ = send_handler(MsgType.TYPE_RESPONSE_OK, b'')
-                flag_ = True
             else:
                 print('failed1', macro_block_header.hash)
 
                 if macro_block_header.hash in self.server.macro_chain.accepted_macro_block_header_hash or \
-                        self.server.macro_chain.accepted_macro_block_headers[macro_block_header.hash] > 1:
+                        self.server.macro_chain.accepted_macro_block_headers[macro_block_header.hash] >= 1:
                     print('pass')
                 else:
                     for i in self.server.ass_chain:
@@ -244,14 +241,12 @@ class ChainMsgHandler(socketserver.StreamRequestHandler):
                             flag = 1
                             self.server.ass_chain[macro_block_header] = (flag, i)
                             self.longest_chain(macro_block_header)
-                            flag_ = True
                             break
 
                     for i in self.server.macro_chain.chain_.queue:
                         if macro_block_header.parent_hash[0] == i.hash:
                             flag = 0
                             self.server.ass_chain[macro_block_header] = (flag, i)
-                            flag_ = True
                             break
 
                     if macro_block_header not in self.server.cached_macro_block_header and macro_block_header not in \
@@ -261,7 +256,6 @@ class ChainMsgHandler(socketserver.StreamRequestHandler):
 
         finally:
             self.request.sendall(_)
-            return flag_
 
     def ass_chain_length(self, macro_block_header):
         flag = 1
@@ -344,7 +338,7 @@ class ChainMsgHandler(socketserver.StreamRequestHandler):
             for j in range(len(trans.ipt.content)):
                 if trans.ipt.content[j] in self.server.macro_chain.utxo_two.txo.keys():
                     if self.server.macro_chain.utxo_two.txo[trans.ipt.content[j]][1] in \
-                            self.server.macro_chain.accepted_macro_block_header_hash:
+                            self.server.macro_chain.accepted_blocks_hash:
                         self.server.macro_chain.utxo_two.utxo[trans.ipt.content[j]] = self.server. \
                             macro_chain.utxo_two.txo[trans.ipt.content[j]]
                         del self.server.macro_chain.utxo_two.txo[trans.ipt.content[j]]
@@ -505,8 +499,9 @@ class ChainBaseServer(socketserver.ThreadingMixIn, socketserver.UnixStreamServer
 
 
 if __name__ == '__main__':
-    address = 'node2'
+    address = 'node1'
     print(address)
     with ChainBaseServer(address, ChainMsgHandler) as server:
         server.serve_forever()
+
 

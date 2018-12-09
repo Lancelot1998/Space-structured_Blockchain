@@ -8,7 +8,7 @@
     :author: hank
 """
 
-from source.blockchain_test_two import *
+from source.blockchain import *
 from source.transfer import MsgType, recv_parser, send_handler, batch_handler, batch_parser
 from source.errors import *
 from source.utility import bin2int
@@ -73,7 +73,8 @@ class ChainMsgHandler(socketserver.StreamRequestHandler):
     def processor_get_parent_hash(self, content):
         content = self.server.macro_chain.pivot_chain.queue[-1]
         for i in self.server.macro_chain.tips:
-            content += i
+            if i != self.server.macro_chain.pivot_chain.queue[-1]:
+                content += i
         self.request.sendall(send_handler(MsgType.TYPE_RESPONSE_OK, content))
 
     def processor_trans_write(self, content):
@@ -184,9 +185,9 @@ class ChainMsgHandler(socketserver.StreamRequestHandler):
                 tran = Transaction(ipt, opt)
                 tran.ready(private_key)
                 content = trans_to_json(tran)
-                requests.post('http://127.0.0.1:23390/transaction_post', data=content)
-                requests.post('http://127.0.0.1:23391/transaction_post', data=content)
-                requests.post('http://127.0.0.1:23392/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
 
                 _ = send_handler(MsgType.TYPE_RESPONSE_OK, tran.b)
                 self.request.sendall(_)
@@ -392,7 +393,7 @@ class ChainBaseServer(socketserver.ThreadingMixIn, socketserver.UnixStreamServer
 
 
 if __name__ == '__main__':
-    address = 'node3'
+    address = 'node1'
     print(address)
     with ChainBaseServer(address, ChainMsgHandler) as server:
         server.serve_forever()

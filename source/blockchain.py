@@ -54,8 +54,8 @@ INIT_HASH = b'G\xfdk\x88\xda5\xff\x8c\x97t\x9f\xcb\xe0\xa8\x07S\x8b9t:.9\x1d\xee
 ll = ctypes.cdll.LoadLibrary
 lib = ll("./lib.so")
 
-input_ = bytes("DAG_structure.txt", "utf-8")
-output_ = bytes("DAG.txt", "utf-8")
+input_ = bytes("DAG_input.txt", "utf-8")
+output_ = bytes("DAG_output.txt", "utf-8")
 
 
 class TransInput:
@@ -787,14 +787,10 @@ class MacroChainDAG:
             else:
                 if i in self.tips:
                     self.tips.remove(i)
-        print('in_operations')
         self.in_operations()
-        print('end')
         with self.mutex:
             lib.test(BLOCK_CYCLE, input_, output_)
-        print('out_operations')
         self.out_operations()
-        print('all end')
         result = dict()
         result_local = list()
         chain_test = list(self.pivot_chain.queue)
@@ -955,7 +951,7 @@ class MacroChainDAG:
 
     def in_operations(self):
         with self.mutex:
-            fd_ = open('DAG_structure.txt', 'w')
+            fd_ = open('DAG_input.txt', 'w')
             fd_.writelines(str(INIT_HASH) + '\n')
             for i in self.chain.items():
                 if len(i[1]) > 0:
@@ -967,7 +963,7 @@ class MacroChainDAG:
     def out_operations(self):
         with self.mutex:
             self.pivot_chain.queue.clear()
-            fd_ = open('DAG.txt', 'r')
+            fd_ = open('DAG_output.txt', 'r')
             for index, line in enumerate(fd_.readlines()):
                 if index == 0:
                     pass
@@ -1196,7 +1192,7 @@ class Blockchain:
                              b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
 
         # set block.hash to '0x1' to enable the function of sort test
-        block.hash = b'0x000000000000000000000000000001'
+        # block.hash = b'0x000000000000000000000000000001'
 
         self.chain = queue.Queue()
         self.chain.put(block)

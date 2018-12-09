@@ -52,10 +52,10 @@ BLOCK_CYCLE = 500
 INIT_HASH = b'G\xfdk\x88\xda5\xff\x8c\x97t\x9f\xcb\xe0\xa8\x07S\x8b9t:.9\x1d\xee\xf4\xb1\xda\xd1r\xaf\xfcu'
 
 ll = ctypes.cdll.LoadLibrary
-lib = ll("./lib_test.so")
+lib = ll("./lib.so")
 
-input_ = bytes("DAG_structure_test.txt", "utf-8")
-output_ = bytes("DAG_test.txt", "utf-8")
+input_ = bytes("DAG_structure.txt", "utf-8")
+output_ = bytes("DAG.txt", "utf-8")
 
 
 class TransInput:
@@ -195,7 +195,7 @@ class Transaction:
 
         txid = b[:BLENGTH_TXID]
 
-        version, timestamp, len_b_public_key, len_ipt_b, len_opt_b = \
+        version, timestamp, len_b_public_key, len_ipt_b, len_opt_b =\
             struct.unpack('=id3i', b[BLENGTH_TXID:BLENGTH_TXID + 4 * BLENGTH_INT + BLENGTH_DOUBLE])
 
         length_ = BLENGTH_TXID + 4 * BLENGTH_INT + BLENGTH_DOUBLE
@@ -282,7 +282,6 @@ class BlockData:
     """
     Data contained in basic block objects, including transactions and attachment
     """
-
     def __init__(self, transaction: List[Transaction], attachment: Attachment) -> None:
         self.trans = transaction
         self.attachment = attachment
@@ -327,7 +326,6 @@ class LightBlockData:
     """
     corresponding to BlockData
     """
-
     def __init__(self, trans_txid, attachment: Attachment) -> None:
         self.attachment = attachment
         self.trans_txid = trans_txid
@@ -450,15 +448,12 @@ class Block:
                       content:          %s
                  length:                %d
         attachment:            %s
-            """ % (i, block_result["data"]["transaction"][i]["public_key"], block_result["data"]["transaction"] \
-                [i]["signature"], block_result["data"]["transaction"][i]["version"], block_result["data"] \
-                                          ["transaction"][i]["timestamp"],
-                   block_result["data"]["transaction"][i]["txid"], block_result["data"] \
-                                          ["transaction"][i]["trans_input"]["public_key_hash"],
-                   block_result["data"]["transaction"][i] \
-                                          ["trans_input"]["content"],
-                   block_result["data"]["transaction"][i]["trans_output"]["content"],
-                   block_result["data"]["transaction"][i]["length"], block_result["data"]["attachment"])
+            """ % (i, block_result["data"]["transaction"][i]["public_key"], block_result["data"]["transaction"]\
+                [i]["signature"], block_result["data"]["transaction"][i]["version"], block_result["data"]\
+                ["transaction"][i]["timestamp"], block_result["data"]["transaction"][i]["txid"], block_result["data"]\
+                ["transaction"][i]["trans_input"]["public_key_hash"], block_result["data"]["transaction"][i]\
+                ["trans_input"]["content"], block_result["data"]["transaction"][i]["trans_output"]["content"],
+                block_result["data"]["transaction"][i]["length"], block_result["data"]["attachment"])
             # print(info)
         return block_result
 
@@ -467,7 +462,6 @@ class MacroBlockHeader:
     """
     testing version, still lacking a list of prev_hash (voting edge, ref edge)
     """
-
     def __init__(self, index: int, timestamp: float, public_key_hash: bytes, parent_hash: list, nonce=None) -> None:
         self.index = index
         self.timestamp = timestamp
@@ -530,7 +524,6 @@ class MacroBlockBody:
     """
     testing version
     """
-
     def __init__(self, hash_: bytes, ref_hash: list, trans: Transaction) -> None:
         self.public_key = None
         self.signature = None
@@ -542,7 +535,7 @@ class MacroBlockBody:
     def __tobin(self, content: bytes) -> bytes:
         sy = self.public_key.public_bytes(Encoding.PEM, PublicFormat.SubjectPublicKeyInfo)
         return self.hash + content + self.trans.b + struct.pack('i', len(self.trans.b)) + self.signature + \
-               struct.pack('i', len(self.signature)) + sy
+            struct.pack('i', len(self.signature)) + sy
 
     @staticmethod
     def __sign(data: bytes, private_key: ec.EllipticCurvePrivateKey) -> SIGNATURE:
@@ -768,8 +761,8 @@ class MacroChainDAG:
         self.accepted_macro_block_headers[INIT_HASH] = 1
         macro_block_header = MacroBlockHeader(0, 0, b'0x', [], 0)
         macro_block_header.hash = INIT_HASH
-        self.chain_.put(macro_block_header)
         self.ref_micro_block[INIT_HASH] = list()
+        self.chain_.put(macro_block_header)
         self.pivot_chain.put(INIT_HASH)
         self.chain[INIT_HASH] = list()
 
@@ -777,12 +770,12 @@ class MacroChainDAG:
 
         if macro_block_header.hash in self.accepted_macro_block_headers.keys():
             self.accepted_macro_block_headers[macro_block_header.hash] += 1
-            # print('end in add macro_block_header wrong')
+            print('end in add macro_block_header wrong1')
             return False
         self.accepted_macro_block_headers[macro_block_header.hash] = 1
 
         if not Verify.add_macro_block_header_verifier_dag(self, macro_block_header):
-            # print('end in add macro_block_header wrong')
+            print('end in add macro_block_header wrong2')
             return False
 
         self.chain[macro_block_header.parent_hash[0]].append(macro_block_header.hash)
@@ -794,13 +787,14 @@ class MacroChainDAG:
             else:
                 if i in self.tips:
                     self.tips.remove(i)
-
+        print('in_operations')
         self.in_operations()
-        print('in')
+        print('end')
         with self.mutex:
             lib.test(BLOCK_CYCLE, input_, output_)
-        print('out')
+        print('out_operations')
         self.out_operations()
+        print('all end')
         result = dict()
         result_local = list()
         chain_test = list(self.pivot_chain.queue)
@@ -910,13 +904,13 @@ class MacroChainDAG:
         return True
 
     def add_macro_block_body(self, macro_block_body: MacroBlockBody):
-        if not Verify.add_macro_block_body_verifier_dag(self, macro_block_body) or \
-                not Verify.add_macro_block_body_verifier_two_dag(self, macro_block_body):
+        print('add in add')
+        if Verify.add_macro_block_body_verifier_dag(self, macro_block_body) and \
+                Verify.add_macro_block_body_verifier_two_dag(self, macro_block_body):
             # print('end in add macro_block_body wrong')
-            return False
-        print('end in add macro_block_body right')
+            return True
 
-        return True
+        return False
 
     def add_trans(self, hash_):
         print("adding trans", len(self.ref_micro_block[hash_]))
@@ -961,7 +955,7 @@ class MacroChainDAG:
 
     def in_operations(self):
         with self.mutex:
-            fd_ = open('DAG_structure_test.txt', 'w')
+            fd_ = open('DAG_structure.txt', 'w')
             fd_.writelines(str(INIT_HASH) + '\n')
             for i in self.chain.items():
                 if len(i[1]) > 0:
@@ -973,7 +967,7 @@ class MacroChainDAG:
     def out_operations(self):
         with self.mutex:
             self.pivot_chain.queue.clear()
-            fd_ = open('DAG_test.txt', 'r')
+            fd_ = open('DAG.txt', 'r')
             for index, line in enumerate(fd_.readlines()):
                 if index == 0:
                     pass
@@ -1018,7 +1012,6 @@ class LightBlock:
     """
     A lightweight block-bade object for broadcast
     """
-
     def __init__(self, index: int, timestamp: float, lightblockdata: LightBlockData, previous_hash: bytes,
                  hash_: bytes, nonce=None) -> None:
         self.index = index
@@ -1052,7 +1045,6 @@ class UTXOTable:
     """
     A table maintains the states of UTXO
     """
-
     def __init__(self):
         self.utxo = dict()
         self.mutex = threading.Lock()
@@ -1097,9 +1089,8 @@ class UTXOTable:
         """
         with self.mutex:
             for ipt in transaction.ipt.content:
-                if ipt in self.utxo.keys():
-                    self.txo[ipt] = self.utxo[ipt]
-                    del self.utxo[ipt]
+                self.txo[ipt] = self.utxo[ipt]
+                del self.utxo[ipt]
 
     def delete_two(self, transaction: Transaction) -> dict:
         """
@@ -1142,7 +1133,7 @@ class UTXOTable:
         """
         with self.mutex:
             if utxo in self.utxo:
-                return self.info(utxo, block=False)['amount'] == amount \
+                return self.info(utxo, block=False)['amount'] == amount\
                        and self.info(utxo, block=False)['to'] == receiver
         return False
 
@@ -1343,7 +1334,7 @@ class TransPool:
         The following conditions 2 guarantee that a new transaction can use UTXO in transpool
         (by giving both self.utxo and self.chain.utxo to checkers)
         But this behavior is not recommended (the used UTXO may not exist in all nodes' transpool)
-
+        
         Also the condition 2 does not prevent the double-spending in transpool, e.g.,
                 Wrong:
         |-- UTXO--|   |-- pool--|
@@ -1357,9 +1348,9 @@ class TransPool:
         |----A<-B-|   |---------|
         |---------|   |--A<-C---|
         |---------|   |---------|
-
+        
         because the codes here do not change the UTXO table of the blockchain.
-
+        
         So I use a extra list recording all inputs of transactions that are in the UTXO table of transpool
         and add the condition 3
         """
@@ -1371,9 +1362,9 @@ class TransPool:
             Verify.balance_checker([self.utxo, self.chain.utxo], transaction)
         ]
         # print(validation)
-        if validation[0] \
-                and validation[1] \
-                and validation[2] \
+        if validation[0]\
+            and validation[1]\
+            and validation[2]\
                 and validation[3]:
 
             self.utxo.add(transaction)  # add all outputs in transaction to the UTXO table of transpool
@@ -1773,6 +1764,7 @@ class Verify:
                 pass
             else:
                 return False
+
         return True
 
     @staticmethod
@@ -1786,7 +1778,7 @@ class Verify:
 
     @staticmethod
     def add_macro_block_body_verifier_dag(macro_chain: MacroChainDAG, macro_block_body: MacroBlockBody) -> bool:
-        print('verify macro_block_body', macro_block_body.show_macro_block_body())
+        print('verify macro_block_body', macro_block_body.hash)
         # print(len(macro_block_body.ref_hash))
         for i in macro_block_body.ref_hash:
             if i not in macro_chain.accepted_micro_blocks:
@@ -1805,6 +1797,7 @@ class Verify:
                 public_key_hash = sha.digest()
 
                 if i.public_key_hash != public_key_hash:
+
                     return False
                 else:
                     content = b''
@@ -1814,7 +1807,7 @@ class Verify:
                         macro_block_body.public_key.verify(macro_block_body.signature,
                                                            content, ec.ECDSA(hashes.SHA256()))
                     except (Exception):
-                        print('sig')
+                        print('\n sig\n ')
                         return False
 
                     else:
@@ -1831,6 +1824,7 @@ class Verify:
 
                 sha = hashlib.sha256()
                 sha.update(b_pubkey)
+                print(b_pubkey)
                 public_key_hash = sha.digest()
 
                 if i.public_key_hash != public_key_hash:

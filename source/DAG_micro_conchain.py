@@ -43,32 +43,10 @@ class PoWServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     def __init__(self, server_name: str, server_address, handler, chainbase_address_):
         self.name = server_name
         self.prev_hash = b''
-        self.target = (2 ** 234 - 1).to_bytes(32, byteorder='big')
+        self.target = (2 ** 236 - 1).to_bytes(32, byteorder='big')
         self.chainbase_address = chainbase_address_
         self.peer = PeerManager()
         self.workers = Pool()
-        self.state = 'worker'
-        self.self_mined_header = None
-        self.self_signed_micro_block = list()
-
-        fd_ = open('ad1.txt', 'r')
-        public_key = b''
-        private_key = b''
-        for index, line in enumerate(fd_.readlines()):
-            if index == 0:
-                line = line.rstrip()
-                pr, pu = line.split('ENDDING')
-                temp = bytes(pr[2:-1], encoding='utf-8')
-                temp = temp.replace(b'\r\n', b'\n')
-                private_key = temp.replace(b'\\n', b'\n')
-                temp = bytes(pu[2:-1], encoding='utf-8')
-                temp = temp.replace(b'\r\n', b'\n')
-                public_key = temp.replace(b'\\n', b'\n')
-                break
-        fd_.close()
-
-        self.public_key = public_key
-        self.private_key = private_key
 
         super().__init__(server_address, handler, bind_and_activate=True)
 
@@ -83,14 +61,14 @@ class PoWServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
         print('ok')
         ore = self.workers.apply_async(mine,
                                        args=(self.target,),
-                                       callback=partial(self.on_new_macro_block_header_mined, self))
+                                       callback=partial(self.on_new_micro_block_mined, self))
 
     @staticmethod
     def stop_miner():
         PoWServer.__set_mine(False)
 
     @staticmethod
-    def on_new_macro_block_header_mined(self: 'PoWServer', result):
+    def on_new_micro_block_mined(self: 'PoWServer', result):
         """
         try to add the block that the server itself mines to the chainbase
         :param self: the instance of PoWServer
@@ -104,15 +82,14 @@ class PoWServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
             if nonce < 0:  # mining is stopped by stop_miner
                 return
 
-            macro_block_header = self.make_macro_block_header(nonce)
+            micro_block = self.make_micro_block(nonce)
 
-            print('macro_block_header mined:')
-            print(macro_block_header.show_macro_block_header())
-            self.peer.sendall_block(msgtype=MsgType.TYPE_NEW_MACRO_BLOCK_HEADER, content=macro_block_header.b)
+            print('micro_block mined:')
+            print(micro_block.show_block())
+            self.peer.sendall_block(msgtype=MsgType.TYPE_NEW_MICRO_BLOCK, content=micro_block.b)
 
-            if self.add_macro_block_header(macro_block_header) is True:
-                self.state = 'leader'
-                self.self_mined_header = macro_block_header
+            if self.add_micro_block(micro_block) is True:
+                self.start_miner()
             else:
                 self.start_miner()
 
@@ -120,20 +97,7 @@ class PoWServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
         print('macro_block_header received')
         macro_block_header = MacroBlockHeader.unpack(macro_block_header)
         if self.add_macro_block_header(macro_block_header):
-
             self.peer.sendall_block(msgtype=MsgType.TYPE_NEW_MACRO_BLOCK_HEADER, content=macro_block_header.b)
-
-            if self.state == 'worker':
-                pass
-            if self.state == 'leader':
-                macro_block_body = self.make_macro_block_body(macro_block_header)
-                print('sending macro_block_body', macro_block_body.show_macro_block_body())
-                # for i in macro_block_body.ref_hash:
-                #     print(i)
-                self.on_new_macro_block_body_received(macro_block_body.b)
-                self.state = 'worker'
-                self.self_mined_header = None
-                self.start_miner()  # start a new miner
 
     def on_new_macro_block_body_received(self, macro_block_body):
         print('macro_block_body received')
@@ -146,56 +110,13 @@ class PoWServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
         micro_block = MicroBlock.unpack(micro_block)
         if self.add_micro_block(micro_block):
             self.peer.sendall_block(msgtype=MsgType.TYPE_NEW_MICRO_BLOCK, content=micro_block.b)
-            if self.state == 'worker':
-                pass
-            else:
-                self.self_signed_micro_block.append(micro_block)
-                self.self_signed_micro_block.sort(key=lambda micro: micro.timestamp)
-                # print(self.self_signed_micro_block)
 
     def init_target(self):
         pass
 
-    def make_macro_block_body(self, macro_block_header: MacroBlockHeader) -> 'MacroBlockBody':
-        ref_hash = list()
-        for i in self.self_signed_micro_block:
-            # print(i)
-            ref_hash.append(i.hash)
-
-        self.self_signed_micro_block.clear()
-
-        private_key = load_pem_private_key(self.private_key, None, default_backend())
-        sha = hashlib.sha256()
-        sha.update(self.public_key)
-        public_key_hash = sha.digest()
-        ipt = TransInput([(TXID(public_key_hash), OUTPUT_INDEX(0))], public_key_hash)
-        opt = TransOutput([(ASSET(100), PUBLIC_KEY_HASH(public_key_hash))])
-        tran = Transaction(ipt, opt, 0)
-        tran.ready(private_key)
-
-        macro_block_body = MacroBlockBody(hash_=macro_block_header.hash, ref_hash=ref_hash, trans=tran)
-        private_key = load_pem_private_key(self.private_key, None, default_backend())
-        macro_block_body.ready(private_key)
-
-        return macro_block_body
-
-    def make_macro_block_header(self, nonce):
-        sha = hashlib.sha256()
-        sha.update(self.public_key)
-        public_key_hash = sha.digest()
-        parent_hash = self.get_parent_hash()
-        print('parent_hash', parent_hash)
-        macro_block_header = MacroBlockHeader(0,  # todo: get index
-                                              timestamp=time.time(),
-                                              public_key_hash=public_key_hash,
-                                              parent_hash=parent_hash,
-                                              nonce=nonce)
-        return macro_block_header
-
     def make_micro_block(self, nonce) -> MicroBlock:
         trans = self.__get_trans()
-        # if len(trans) > 1000:
-        #     trans = trans[:1000]
+
         info = Attachment()
         info.add_data(b'mined by ' + self.name.encode())
         info.ready()
@@ -228,7 +149,7 @@ class PoWServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
             ipt = TransInput([(TXID(public_key_hash), OUTPUT_INDEX(0))], public_key_hash)
             fd_ = open('ad1.txt', 'r')
             for index, line in enumerate(fd_.readlines()):
-                if index == 0:
+                if index == 2:
                     line = line.rstrip()
                     pr, pu = line.split('ENDDING')
                     temp = bytes(pu[2:-1], encoding='utf-8')
@@ -294,7 +215,7 @@ class PoWServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
         """
         with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as s:
             s.connect(self.chainbase_address)
-            s.sendall(send_handler(MsgType.TYPE_GET_PARENT_HASH, b''))
+            s.sendall(send_handler(MsgType.TYPE_GET_PARENT_HASH, None))
             *_, msgtype, content = recv_parser(s)
         result = list()
         len_ = int(len(content) / 32)
@@ -379,14 +300,10 @@ class PowHandler(socketserver.StreamRequestHandler):
 
 if __name__ == '__main__':
 
-    address = ('localhost', 22301)
-    chainbase_address = 'node2'
+    address = ('0.0.0.0', 22300)
+    chainbase_address = 'node1'
 
-    with PoWServer('node2', address, PowHandler, chainbase_address) as server:
-        server.peer.peer_discover(('localhost', 22300))
-        server.peer.peer_discover(('localhost', 22302))
-        fd = open('peer.txt', 'w')
-        fd.writelines(['127.0.0.1:23391\n'])
-        # fd.writelines(['127.0.0.1:23392\n'])
-        fd.close()
+    with PoWServer('node1', address, PowHandler, chainbase_address) as server:
+        server.peer.peer_discover(('', 22300))
+        server.peer.peer_discover(('', 22300))
         server.serve_forever()

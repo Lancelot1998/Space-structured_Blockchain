@@ -198,8 +198,7 @@ class PoWServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
 
     def make_micro_block(self, nonce) -> MicroBlock:
         trans = self.__get_trans()
-        # if len(trans) > 1000:
-        #     trans = trans[:1000]
+
         info = Attachment()
         info.add_data(b'mined by ' + self.name.encode())
         info.ready()
@@ -384,14 +383,10 @@ class PowHandler(socketserver.StreamRequestHandler):
 
 if __name__ == '__main__':
 
-    address = ('localhost', 22300)
+    address = ('0.0.0.0', 22300)
     chainbase_address = 'node1'
 
     with PoWServer('node1', address, PowHandler, chainbase_address) as server:
-        server.peer.peer_discover(('localhost', 22301))
-        server.peer.peer_discover(('localhost', 22302))
-        fd = open('peer.txt', 'w')
-        fd.writelines(['127.0.0.1:23391\n'])
-        # fd.writelines(['127.0.0.1:23392\n'])
-        fd.close()
+        server.peer.peer_discover(('', 22300))
+        server.peer.peer_discover(('', 22300))
         server.serve_forever()

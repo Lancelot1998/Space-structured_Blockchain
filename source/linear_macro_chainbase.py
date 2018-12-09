@@ -190,9 +190,9 @@ class ChainMsgHandler(socketserver.StreamRequestHandler):
                 tran = Transaction(ipt, opt)
                 tran.ready(private_key)
                 content = trans_to_json(tran)
-                requests.post('http://127.0.0.1:23390/transaction_post', data=content)
-                requests.post('http://127.0.0.1:23391/transaction_post', data=content)
-                requests.post('http://127.0.0.1:23392/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
 
                 _ = send_handler(MsgType.TYPE_RESPONSE_OK, tran.b)
 

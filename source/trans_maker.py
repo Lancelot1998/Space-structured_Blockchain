@@ -65,16 +65,6 @@ class PoWServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
                     print(content[:BLENGTH_TXID])
                     print('sha')
                     print(sha.digest())
-                    # content = Transaction.unpack(content)
-                    # t = content.timestamp
-                    # content = trans_to_json(content)
-                    # r = requests.post('http://127.0.0.1:23390/transaction_post', data=content)
-                    # q = requests.post('http://127.0.0.1:23391/transaction_post', data=content)
-                    # print('trans')
-                    # print(t)
-                    # print('trans_end')
-                    # print(r.text)
-                    # print(q.text)
                     time.sleep(0.01)
             except Exception as e:
                 print('error')
@@ -92,7 +82,7 @@ class PowHandler(socketserver.StreamRequestHandler):
 
 
 if __name__ == '__main__':
-    address = ('localhost', 11390)
+    address = ('0.0.0.0', 11390)
     chainbase_address = 'node1'
 
     with PoWServer('time1', address, PowHandler, chainbase_address) as server:
