@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9c865f9c-cc6a-4cd2-8c5b-22f094a453c0" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/source/DAG_macro_conchain.py" beforeDir="false" afterPath="$PROJECT_DIR$/source/DAG_macro_conchain.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/source/blockchain.py" beforeDir="false" afterPath="$PROJECT_DIR$/source/source/blockchain.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -96,106 +97,7 @@
     <favorites_list name="Blockchain-prototype" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DAG_macro_chainbase.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/DAG_macro_chainbase.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-8088">
-              <caret line="83" selection-start-line="83" selection-end-line="83" />
-              <folding>
-                <element signature="e#118#149#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DAG_input.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/DAG_input.txt">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="DAG_macro_conchain.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/source/DAG_macro_conchain.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
-              <caret line="45" column="31" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="31" />
-              <folding>
-                <element signature="e#127#231#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="linear_macro_chainbase.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/linear_macro_chainbase.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4887">
-              <caret line="195" selection-start-line="195" selection-end-line="195" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DAG_micro_conchain.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/DAG_micro_conchain.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="819">
-              <caret line="315" column="61" selection-start-line="315" selection-start-column="61" selection-end-line="315" selection-end-column="61" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="chainbase.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/chainbase.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10962">
-              <caret line="421" column="53" selection-start-line="421" selection-start-column="53" selection-end-line="421" selection-end-column="53" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="address_maker.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/address_maker.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="756">
-              <caret line="31" column="39" lean-forward="true" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="conchain.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/conchain.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-              <folding>
-                <element signature="e#127#231#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="webchain.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/webchain.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2148">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="blockchain.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/blockchain.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="33075">
-              <caret line="1225" column="43" lean-forward="true" selection-start-line="1225" selection-start-column="43" selection-end-line="1225" selection-end-column="43" />
-              <folding>
-                <element signature="e#148#162#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -210,7 +112,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/source/webchain_test.py" />
         <option value="$PROJECT_DIR$/source/webchain.py" />
         <option value="$PROJECT_DIR$/source/conchain_test.py" />
         <option value="$PROJECT_DIR$/source/conchain_macro_test.py" />
@@ -261,6 +162,7 @@
         <option value="$PROJECT_DIR$/source/chainbase3.py" />
         <option value="$PROJECT_DIR$/source/chainbase2.py" />
         <option value="$PROJECT_DIR$/source/DAG_macro_conchain.py" />
+        <option value="$PROJECT_DIR$/source/source/blockchain.py" />
       </list>
     </option>
   </component>
@@ -273,7 +175,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="65" />
     <option name="y" value="24" />
     <option name="width" value="636" />
@@ -287,6 +189,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -299,11 +202,16 @@
               <item name="DAG_Blockchain" type="462c0819:PsiDirectoryNode" />
               <item name="source" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="DAG_Blockchain" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DAG_Blockchain" type="462c0819:PsiDirectoryNode" />
+              <item name="source" type="462c0819:PsiDirectoryNode" />
+              <item name="source" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -511,7 +419,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1855" height="1004" extended-state="6" />
+    <frame x="65" y="-4" width="1855" height="1004" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" x="42" y="243" width="1813" height="288" id="TODO" order="5" type="FLOATING" weight="0.32876712" />
@@ -528,15 +436,15 @@
       <window_info id="Structure" order="1" sideWeight="0.50114155" side_tool="true" weight="0.1654716" />
       <window_info id="Favorites" order="2" sideWeight="0.50114155" side_tool="true" weight="0.1654716" />
       <window_info anchor="bottom" id="Debug" order="2" weight="0.39822024" />
-      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="13" weight="0.066740826" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Coverage" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32925472" />
-      <window_info anchor="right" id="Coverage" order="4" side_tool="true" />
+      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="13" weight="0.066740826" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -660,41 +568,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/linear_micro_chainbase.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13149">
-          <caret line="501" column="20" selection-start-line="501" selection-start-column="20" selection-end-line="501" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/linear_macro_conchain.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="389" column="61" lean-forward="true" selection-start-line="389" selection-start-column="61" selection-end-line="389" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/DAG_micro_chainbase.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1701">
           <caret line="77" column="77" selection-start-line="77" selection-start-column="77" selection-end-line="77" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/linear_micro_conchain.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8478">
-          <caret line="314" column="61" selection-start-line="314" selection-start-column="61" selection-end-line="314" selection-end-column="61" />
-          <folding>
-            <element signature="e#127#231#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/linear_macro_chainbase.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4887">
-          <caret line="195" selection-start-line="195" selection-end-line="195" />
         </state>
       </provider>
     </entry>
@@ -714,27 +591,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/blockchain.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="33075">
-          <caret line="1225" column="43" lean-forward="true" selection-start-line="1225" selection-start-column="43" selection-end-line="1225" selection-end-column="43" />
-          <folding>
-            <element signature="e#148#162#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/webchain.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2148">
+        <state relative-caret-position="270">
           <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/DAG_micro_conchain.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="819">
+        <state relative-caret-position="7938">
           <caret line="315" column="61" selection-start-line="315" selection-start-column="61" selection-end-line="315" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/conchain.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#127#231#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/linear_micro_conchain.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="606">
+          <caret line="314" column="61" lean-forward="true" selection-start-line="305" selection-start-column="8" selection-end-line="314" selection-end-column="61" />
+          <folding>
+            <element signature="e#127#231#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/linear_micro_chainbase.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="501" column="20" selection-start-line="501" selection-start-column="20" selection-end-line="501" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/linear_macro_chainbase.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7710">
+          <caret line="195" selection-start-line="195" selection-end-line="195" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/linear_macro_conchain.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="606">
+          <caret line="393" column="60" lean-forward="true" selection-start-line="393" selection-start-column="60" selection-end-line="393" selection-end-column="60" />
         </state>
       </provider>
     </entry>
@@ -748,25 +656,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/DAG_input.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/conchain.py">
+    <entry file="file://$PROJECT_DIR$/source/DAG_macro_conchain.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        <state relative-caret-position="10557">
+          <caret line="391" column="61" lean-forward="true" selection-start-line="391" selection-start-column="61" selection-end-line="391" selection-end-column="61" />
           <folding>
             <element signature="e#127#231#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/DAG_macro_conchain.py">
+    <entry file="file://$PROJECT_DIR$/source/blockchain.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="45" column="31" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="31" />
+        <state relative-caret-position="-18105">
+          <caret line="1281" column="21" lean-forward="true" selection-start-line="1281" selection-start-column="21" selection-end-line="1281" selection-end-column="21" />
           <folding>
-            <element signature="e#127#231#0" expanded="true" />
+            <element signature="e#148#162#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/source/blockchain.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="687">
+          <caret line="1986" lean-forward="true" selection-start-line="1986" selection-end-line="1986" />
+          <folding>
+            <element signature="e#148#162#0" expanded="true" />
           </folding>
         </state>
       </provider>
