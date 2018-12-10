@@ -43,7 +43,7 @@ class PoWServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     def __init__(self, server_name: str, server_address, handler, chainbase_address_):
         self.name = server_name
         self.prev_hash = b''
-        self.target = (2 ** 233 - 1).to_bytes(32, byteorder='big')
+        self.target = (2 ** 231 - 1).to_bytes(32, byteorder='big')
         self.chainbase_address = chainbase_address_
         self.peer = PeerManager()
         self.workers = Pool()
