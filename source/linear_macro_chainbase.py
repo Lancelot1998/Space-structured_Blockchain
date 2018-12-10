@@ -193,6 +193,13 @@ class ChainMsgHandler(socketserver.StreamRequestHandler):
                 requests.post('http://:8000/transaction_post', data=content)
                 requests.post('http://:8000/transaction_post', data=content)
                 requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
 
                 _ = send_handler(MsgType.TYPE_RESPONSE_OK, tran.b)
 

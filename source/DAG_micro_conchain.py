@@ -305,4 +305,13 @@ if __name__ == '__main__':
 
     with PoWServer('node1', address, PowHandler, chainbase_address) as server:
         server.peer.peer_discover(('', 22300))
+        server.peer.peer_discover(('', 22300))
+        server.peer.peer_discover(('', 22300))
+        server.peer.peer_discover(('', 22300))
+        server.peer.peer_discover(('', 22300))
+        server.peer.peer_discover(('', 22300))
+        server.peer.peer_discover(('', 22300))
+        server.peer.peer_discover(('', 22300))
+        server.peer.peer_discover(('', 22300))
+        server.peer.peer_discover(('', 22300))
         server.serve_forever()

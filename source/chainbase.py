@@ -411,6 +411,15 @@ class ChainMsgHandler(socketserver.StreamRequestHandler):
                 tran.ready(private_key)
                 content = trans_to_json(tran)
                 requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
+                requests.post('http://:8000/transaction_post', data=content)
 
                 if result[_address[0]][2] in self.server.Address.keys():
                     self.server.Address[result[_address[0]][2]][0] -= len(tran.b) \
