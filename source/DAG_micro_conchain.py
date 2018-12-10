@@ -304,14 +304,5 @@ if __name__ == '__main__':
     chainbase_address = 'node1'
 
     with PoWServer('node1', address, PowHandler, chainbase_address) as server:
-        server.peer.peer_discover(('129.211.110.128', 22300))
-        server.peer.peer_discover(('129.211.108.112', 22300))
-        server.peer.peer_discover(('129.211.109.177', 22300))
-        server.peer.peer_discover(('129.211.109.21', 22300))
-        server.peer.peer_discover(('129.211.110.156', 22300))
-        server.peer.peer_discover(('129.211.107.20', 22300))
-        server.peer.peer_discover(('129.211.108.126', 22300))
-        server.peer.peer_discover(('129.211.108.131', 22300))
-        server.peer.peer_discover(('212.64.104.102', 22300))
-        server.peer.peer_discover(('129.211.109.224', 22300))
+        server.peer.peer_discover(('', 22300))
         server.serve_forever()

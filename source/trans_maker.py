@@ -85,5 +85,5 @@ if __name__ == '__main__':
     address = ('0.0.0.0', 11390)
     chainbase_address = 'node1'
 
-    with PoWServer('time1', address, PowHandler, chainbase_address) as server:
+    with PoWServer('generator', address, PowHandler, chainbase_address) as server:
         server.serve_forever()

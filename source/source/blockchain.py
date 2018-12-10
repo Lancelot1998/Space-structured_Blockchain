@@ -781,7 +781,7 @@ class MacroChainDAG:
             return False
         with self.mutex:
             fd_ = open('timestamp.txt', 'a')
-            fd_.writelines(str(self.length) + '\t' + str(macro_block_header.hash) + str(time.time()) + '\n')
+            fd_.writelines(str(self.length) + '\t' + str(macro_block_header.hash) + str(time.time()) + '\t' + '\n')
             fd_.close()
         self.accepted_macro_block_headers[macro_block_header.hash] = 1
 
@@ -1237,7 +1237,7 @@ class Blockchain:
         self.accepted_blocks[block.hash] = 1
         with self.mutex:
             fd_ = open('timestamp.txt', 'a')
-            fd_.writelines(str(self.length) + '\t' + str(block.hash) + str(time.time()) + '\n')
+            fd_.writelines(str(self.length) + '\t' + str(block.hash) + '\t\t' + str(time.time()) + '\n')
             fd_.close()
 
         if not Verify.add_block_verifier(self, block):
