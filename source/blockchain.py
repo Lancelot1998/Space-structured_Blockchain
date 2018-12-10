@@ -772,6 +772,10 @@ class MacroChainDAG:
             self.accepted_macro_block_headers[macro_block_header.hash] += 1
             print('end in add macro_block_header wrong1')
             return False
+        with self.mutex:
+            fd_ = open('timestamp.txt', 'a')
+            fd_.writelines(str(self.length) + '\t' + str(macro_block_header.hash) + str(time.time()) + '\n')
+            fd_.close()
         self.accepted_macro_block_headers[macro_block_header.hash] = 1
 
         if not Verify.add_macro_block_header_verifier_dag(self, macro_block_header):
@@ -1222,6 +1226,10 @@ class Blockchain:
             print('end in add block wrong')
             return False
         self.accepted_blocks[block.hash] = 1
+        with self.mutex:
+            fd_ = open('timestamp.txt', 'a')
+            fd_.writelines(str(self.length) + '\t' + str(block.hash) + str(time.time()) + '\n')
+            fd_.close()
 
         if not Verify.add_block_verifier(self, block):
             print('end in add block wrong')

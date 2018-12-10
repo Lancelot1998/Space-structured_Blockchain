@@ -410,8 +410,17 @@ class ChainMsgHandler(socketserver.StreamRequestHandler):
                 tran = Transaction(ipt, opt)
                 tran.ready(private_key)
                 content = trans_to_json(tran)
-                requests.post('http://127.0.0.1:23390/transaction_post', data=content)
-                requests.post('http://127.0.0.1:23391/transaction_post', data=content)
+                requests.post('http://129.211.110.128:8000/transaction_post', data=content)
+                requests.post('http://129.211.108.112:8000/transaction_post', data=content)
+                requests.post('http://129.211.109.177:8000/transaction_post', data=content)
+                requests.post('http://129.211.109.21:8000/transaction_post', data=content)
+                requests.post('http://129.211.110.156:8000/transaction_post', data=content)
+                requests.post('http://129.211.107.20:8000/transaction_post', data=content)
+                requests.post('http://129.211.108.126:8000/transaction_post', data=content)
+                requests.post('http://129.211.108.131:8000/transaction_post', data=content)
+                requests.post('http://212.64.104.102:8000/transaction_post', data=content)
+                requests.post('http://129.211.109.224:8000/transaction_post', data=content)
+
                 if result[_address[0]][2] in self.server.Address.keys():
                     self.server.Address[result[_address[0]][2]][0] -= len(tran.b) \
                                                                           * self.server.throughput / (1000 * 2 * 4)
