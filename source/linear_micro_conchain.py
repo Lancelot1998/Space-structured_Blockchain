@@ -303,7 +303,7 @@ if __name__ == '__main__':
     chainbase_address = 'node1'
 
     with PoWServer('node1', address, PowHandler, chainbase_address) as server:
-        server.peer.peer_discover(('', 22300))
+        server.peer.peer_discover(('129.211.110.239', 22300))  # 1
         server.peer.peer_discover(('', 22300))
         server.peer.peer_discover(('', 22300))
         server.peer.peer_discover(('', 22300))

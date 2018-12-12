@@ -387,14 +387,14 @@ if __name__ == '__main__':
     chainbase_address = 'node1'
 
     with PoWServer('node1', address, PowHandler, chainbase_address) as server:
-        server.peer.peer_discover(('', 22300))
-        server.peer.peer_discover(('', 22300))
-        server.peer.peer_discover(('', 22300))
-        server.peer.peer_discover(('', 22300))
-        server.peer.peer_discover(('', 22300))
-        server.peer.peer_discover(('', 22300))
-        server.peer.peer_discover(('', 22300))
-        server.peer.peer_discover(('', 22300))
-        server.peer.peer_discover(('', 22300))
-        server.peer.peer_discover(('', 22300))
+        server.peer.peer_discover(('129.211.110.239', 22300))  # 1
+        server.peer.peer_discover(('129.211.112.165', 22300))  # 2
+        server.peer.peer_discover(('129.211.108.22', 22300))   # 3
+        server.peer.peer_discover(('129.211.107.98', 22300))   # 4
+        server.peer.peer_discover(('129.211.112.210', 22300))  # 5
+        server.peer.peer_discover(('212.129.128.25', 22300))   # 6
+        server.peer.peer_discover(('129.211.112.110', 22300))  # 7
+        server.peer.peer_discover(('129.211.108.179', 22300))  # 8
+        server.peer.peer_discover(('129.211.112.247', 22300))  # 9
+        server.peer.peer_discover(('212.64.102.86', 22300))    # 10
         server.serve_forever()
