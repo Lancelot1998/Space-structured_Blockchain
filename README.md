@@ -1,4 +1,4 @@
-# DAG_Bclockchain
+# DAG_Blockchain
 
 This is a prototype of blockchain(BC) in python3.6
 
