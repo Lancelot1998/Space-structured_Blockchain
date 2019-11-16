@@ -1,6 +1,6 @@
 # DAG_Blockchain
 
-This is a prototype of blockchain(BC) in python3.6
+This is a prototype of blockchain (BC) in python3.6
 
 The system consists of three parts, which are webchain, conchain, and chainbase.
 
@@ -10,7 +10,7 @@ During each block-cycle, macroblock miners execute leadership selection, while m
 
 To find more details, please wait for our update.
 
-Here is a usage example(just for local test, which 1 microblock miner and 2 marcoblock miners）
+Here is a usage example (just for local test, which 1 microblock miner and 2 marcoblock miners）
 
 First
 
@@ -20,7 +20,7 @@ pip install -r requirements.txt
 ```
 Second
 
-Build lib.so(Pivot Chain selection function, written in C++)
+Build lib.so (Pivot Chain selection function, written in C++)
 ```
 g++ main.cpp -fPIC -shared -o lib.so
 g++ main.cpp -fPIC -shared -o lib_test.so
