@@ -78,7 +78,7 @@ Then, webchain is accessable form port:8000!
 
 Second 
 
-Build lib.so(Pivot Chain selection function, written in C++)
+Build lib.so (Pivot Chain selection function, written in C++)
 ```
 g++ main.cpp -fIPC -shared -o lib.so
 ```
