@@ -9,5 +9,5 @@ Jinja2==2.10
 MarkupSafe==1.0
 pycparser==2.18
 six==1.11.0
-Werkzeug==0.14.1
+Werkzeug==0.15.3
 requests==2.19.1
