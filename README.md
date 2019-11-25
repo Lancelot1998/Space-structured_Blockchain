@@ -1,6 +1,6 @@
 # Space-structured_Blockchain
 
-This is a prototype of blockchain (BC) in python3.6
+This is a prototype of blockchain (BC) in python 3.6
 
 The system consists of three parts, which are webchain, conchain, and chainbase.
 
