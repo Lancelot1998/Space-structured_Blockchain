@@ -6,7 +6,7 @@ The system consists of three parts, which are webchain, conchain, and chainbase.
 
 The entity consists of two parts, which are macroblock miner and microblock miner.
 
-During each block-cycle, macroblock miners execute leadership selection, while microblock miners just execute mining.
+During each epoch, macroblock miners execute leadership selection, while microblock miners just execute mining.
 
 To find more details, please wait for our update.
 
