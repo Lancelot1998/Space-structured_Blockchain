@@ -4,9 +4,15 @@ This is a prototype of blockchain (BC) in python 3.6
 
 The system consists of three parts, which are webchain, conchain, and chainbase.
 
-The entity consists of two parts, which are macroblock miner and microblock miner.
+# Description
 
-During each epoch, macroblock miners execute leadership selection, while microblock miners just execute mining.
+Different from previous work, this prototype adopts a novel space-structured ledger with several advanced algorihms.
+
+Our motivation is to enabling blockchain in heterogeneous environments, e.g., IoT.
+
+In detail, the roles in P2P network is devided to two parts, which are macroblock miner and microblock miner.
+
+During each epoch, macroblock miners execute leadership selection, while microblock miners just validate transactions.
 
 To find more details, please wait for our update.
 
