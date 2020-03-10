@@ -1,8 +1,8 @@
 # Space-structured_Blockchain
 
-This is a prototype of blockchain (BC) in python 3.6
+This is a prototype of blockchain (BC) in `python 3.6`
 
-The system consists of three parts, which are webchain, conchain, and chainbase.
+The system consists of three parts, which are `webchain`, `conchain`, and `chainbase`.
 
 # Description
 
@@ -10,7 +10,7 @@ Different from previous work, this prototype adopts a novel space-structured led
 
 Our motivation is to enabling blockchain in heterogeneous environments, e.g., IoT.
 
-In detail, the roles in P2P network is devided to two parts, which are macroblock miner and microblock miner.
+In detail, the roles in P2P network is devided to two parts, which are `macroblock miner` and `microblock miner`.
 
 During each epoch, macroblock miners execute leadership selection, while microblock miners just validate transactions.
 
